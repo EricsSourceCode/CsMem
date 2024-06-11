@@ -9,10 +9,6 @@
 
 
 
-// See https://ericssourcecode.github.io/
-// For guides and information.
-
-
 
 using System;
 
@@ -24,31 +20,24 @@ using System;
 
 public class Uint32Array
 {
-private MainData mData;
 private uint[] uArray;
 
 
-private Uint32Array()
+internal Uint32Array()
 {
-}
-
-
-internal Uint32Array( MainData useMainData )
-{
-mData = useMainData;
-
 try
 {
 uArray = new uint[2];
 }
-catch( Exception Except )
+catch( Exception ) //  Except )
   {
-  freeAll();
-  mData.showStatus(
-     "Not enough memory for Uint32Array." );
-  mData.showStatus( Except.Message );
-  // return;
+  string showS = "Uint32Array: not" +
+     " enough memory.";
+     //   + Except.Message;
+
+  throw new Exception( showS );
   }
+}
 
 
 void freeAll()
@@ -62,15 +51,17 @@ void setSize( int howBig )
 {
 try
 {
+if( howBig == uArray.Length )
+  return;
+
 uArray = new uint[howBig];
 }
-catch( Exception Except )
+catch( Exception ) // Except )
   {
-  freeAll();
-  mData.showStatus(
-     "Not enough memory for Uint32Array." );
-  mData.showStatus( Except.Message );
-  // return;
+  string showS = "Uint32Array: not" +
+     " enough memory.";
+
+  throw new Exception( showS );
   }
 }
 
@@ -92,7 +83,7 @@ return uArray[where];
 
 
 
-void setVal( uint where, uint setTo )
+void setVal( int where, uint setTo )
 {
 RangeT.test( where, 0, uArray.Length - 1,
              "Uint32Array.setVal() range." );
