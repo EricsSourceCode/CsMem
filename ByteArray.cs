@@ -87,11 +87,13 @@ bArray[where] = setTo;
 
 
 
-void copy( ByteArray toCopy )
+internal void copy( ByteArray toCopy )
 {
-setSize( toCopy.getSize() );
+int max = toCopy.getSize();
 
-int max = bArray.Length;
+if( getSize() < max )
+  setSize( max );
+
 for( int count = 0; count < max; count++ )
   bArray[count] = toCopy.bArray[count];
 

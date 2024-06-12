@@ -47,7 +47,7 @@ uArray = null;
 
 
 
-void setSize( int howBig )
+internal void setSize( int howBig )
 {
 try
 {
@@ -66,14 +66,14 @@ catch( Exception ) // Except )
 }
 
 
-int getSize()
+internal int getSize()
 {
 return uArray.Length;
 }
 
 
 
-uint getVal( int where )
+internal uint getVal( int where )
 {
 RangeT.test( where, 0, uArray.Length - 1,
              "Uint32Array.getVal() range." );
@@ -83,7 +83,7 @@ return uArray[where];
 
 
 
-void setVal( int where, uint setTo )
+internal void setVal( int where, uint setTo )
 {
 RangeT.test( where, 0, uArray.Length - 1,
              "Uint32Array.setVal() range." );
@@ -93,11 +93,13 @@ uArray[where] = setTo;
 
 
 
-void copy( Uint32Array toCopy )
+internal void copy( Uint32Array toCopy )
 {
-setSize( toCopy.getSize() );
+int max = toCopy.getSize();
 
-int max = uArray.Length;
+if( getSize() < max )
+  setSize( max );
+
 for( int count = 0; count < max; count++ )
   uArray[count] = toCopy.uArray[count];
 
